@@ -25,7 +25,7 @@ d3.json("../data/samples.json").then(data => {
     //create an option element for all names
     //be sure to set the value of the option to your filter value
 
-    let mySelect = d3.select("selDataset");
+    let mySelect = d3.select("#selDataset");
     // mySelect.append("option").attr("value", "set your value").text("set our text");
 
     data.names.forEach(element => {
