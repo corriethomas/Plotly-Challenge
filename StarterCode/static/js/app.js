@@ -35,6 +35,9 @@ function init() {
         console.log(svalue);
         console.log(olabel);
 
+        // Run our charts and metadata functions
+        metadata(demographics);
+        charts(otuIDs, svalue, olabel);
 });
 
 
