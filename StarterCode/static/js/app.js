@@ -13,10 +13,15 @@ function init() {
         // Filter the sample data, convert string id to int id, then filter the demographics data
         let sample = data.samples.filter(sample => sample.id === str_id);
         console.log(sample);
+        let samp_result = sample[0];
+        console.log(samp_result);
+
         let id = parseInt(str_id);
-        let demo = data.metadata.filter(demographics => demographics.id === id);
-        console.log(demo);
         
+        let demo = data.metadata.filter(dgraphics => dgraphics.id === id);
+        console.log(demo);
+        let demographics = demo[0];
+        console.log(demographics);
         
         
         mySelect.on("change", () =>
