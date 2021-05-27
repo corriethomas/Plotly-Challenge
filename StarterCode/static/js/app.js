@@ -1,9 +1,24 @@
-updatePlots = (data) => {
-    let id = d3.event.target.value;
-    let sample = data.samples.filter(sample => sample.id === id);
-    let xBubble = sample.otu_ids;
-    let yBubble = sample.sample_values;
-}
+// updatePlots = (data) => {
+//     let id = d3.event.target.value;
+//     let sample = data.samples.filter(sample => sample.id === id);
+//     let xBubble = sample.otu_ids;
+//     let yBubble = sample.sample_values;
+// }
+
+function metadata() {
+    d3.json("samples.json"), function (data) {
+        let metadata = data.metadata;
+        let sample = metadata.filter(sample => sample.id === id);
+        let demographics = metadata.filter(demographics => demographics.id === sample);
+        let header = d3.select("#sample-metadata");
+        header.html("");
+        Object.entries(demographics).forEach(([k, v]) => {
+            header.append("option").text(`${k}: ${v}`); //.attr("value", [k, v])
+        });
+    }
+};
+
+function init() {
 
 d3.json("../data/samples.json").then(data => {
     console.log(data);
@@ -37,3 +52,7 @@ d3.json("../data/samples.json").then(data => {
 });
 
 
+
+};
+
+init ();
