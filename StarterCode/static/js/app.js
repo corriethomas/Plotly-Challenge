@@ -26,6 +26,15 @@ function init() {
         console.log(demo);
         let demographics = demo[0];
         console.log(demographics);
+
+        // Create new arrays that we'll use to make our graphs
+        let otuIDs = sample.map((otus) => otus.otu_ids);
+        let svalue = sample.map((svalues) => svalues.sample_values);
+        let olabel = sample.map((olabels) => olabels.otu_labels);
+        console.log(otuIDs);
+        console.log(svalue);
+        console.log(olabel);
+
 });
 
 
@@ -49,9 +58,7 @@ function charts() {
         let otu = csample_results.map((otus) => otus.otu_ids);
         let svalue = csample_results.map((svalues) => svalues.sample_values);
         let olabel = csample_results.map((olabels) => olabels.otu_labels);
-        console.log(otu);
-        console.log(svalue);
-        console.log(olabel);
+        
     });
 };
 
