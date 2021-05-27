@@ -1,9 +1,27 @@
-// updatePlots = (data) => {
-//     let id = d3.event.target.value;
+// Create function to read in data
+function init() {
+    d3.json("../data/samples.json").then(data => {
+        console.log(data);
+        // Create dropdown list/option element
+        let mySelect = d3.select("#selDataset");
+        data.names.forEach(element => {
+            mySelect.append("option").attr("value", element).text(element);
+    });
+        // Set the value of the option to your filter value
+        let str_id = mySelect.property("value");
 
-//     let xBubble = sample.otu_ids;
-//     let yBubble = sample.sample_values;
-// }
+        // Filter the sample data, convert string id to int id, then filter the demographics data
+        let sample = data.samples.filter(sample => sample.id === str_id);
+        console.log(sample);
+        let id = parseInt(str_id);
+        let demo = data.metadata.filter(demographics => demographics.id === id);
+        console.log(demo);
+        
+        
+        
+        mySelect.on("change", () =>
+        updatePlots(data));
+});
 
 
 // for demo info: filter metadata for id
@@ -33,27 +51,7 @@ function charts() {
 };
 
 
-function init() {
-    d3.json("../data/samples.json").then(data => {
-        console.log(data);
-        //for dropdown list: create an option element for all names
-        let mySelect = d3.select("#selDataset");
-        data.names.forEach(element => {
-            mySelect.append("option").attr("value", element).text(element);
-    });
-        //be sure to set the value of the option to your filter value
-        let id = mySelect.property("value");
-        let parsed_id = parseInt(id);
 
-        let sample = data.samples.filter(sample => sample.id === id);
-        console.log(sample);
-        let demo = data.metadata.filter(demographics => demographics.id === parsed_id);
-        console.log(demo);
-
-    
-        mySelect.on("change", () =>
-        updatePlots(data));
-});
 
 
 
