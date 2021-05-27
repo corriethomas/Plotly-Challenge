@@ -7,6 +7,10 @@ function init() {
         data.names.forEach(element => {
             mySelect.append("option").attr("value", element).text(element);
     });
+
+        // Add change event function for dropdown
+        mySelect.on("change", () => updatePlots(mySelect));
+
         // Set the value of the option to your filter value
         let str_id = mySelect.property("value");
 
@@ -17,15 +21,11 @@ function init() {
         console.log(samp_result);
 
         let id = parseInt(str_id);
-        
+
         let demo = data.metadata.filter(dgraphics => dgraphics.id === id);
         console.log(demo);
         let demographics = demo[0];
         console.log(demographics);
-        
-        
-        mySelect.on("change", () =>
-        updatePlots(data));
 });
 
 
