@@ -67,23 +67,45 @@ function init() {
             y: otu,
             text: labels,
             orientation: "h",
+            width: 50,
         };
 
+        let hbarlayout = {
+            title: "Top 10 OTUs Per Individual",
+            xaxis: {
+                title: "Sample Value"
+            },
+            yaxis: {
+                title: "OTU ID"
+            },
+        }
+
         let hbarchart = [hbar];
-        Plotly.newPlot("bar", hbarchart);
+        Plotly.newPlot("bar", hbarchart, hbarlayout);
 
         // Create bubble chart
         let bubble = {
             x: otu,
             y: values,
+            text: labels,
             mode: "markers",
             marker: {
-                size: values, color: otu, color: labels,
+                size: values, color: otu,
             }
         };
 
+        let bubblelayout = {
+            title: "OTU Samples",
+            xaxis: {
+                title: "OTU ID"
+            },
+            yaxis: {
+                title: "Sample Value"
+            },
+        }
+
         let bubblechart = [bubble];
-        Plotly.newPlot("bubble", bubblechart);
+        Plotly.newPlot("bubble", bubblechart, bubblelayout);
  };
     // Create change function
     handleChange = () => {
