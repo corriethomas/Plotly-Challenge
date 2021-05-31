@@ -48,36 +48,39 @@ function metadata(demographics) {
         header.append("option").text(`${k}: ${v}`); //.attr("value", [k, v])
         });
     };
+// };
+
+// Create plot function, starting with labels
+function charts(otuIDs, svalue, olabel) {
+    otu = otuIDs[0].slice(0, 10);
+    values = svalue[0].slice(0, 10);
+    labels = olabel[0].slice(0, 10);
 };
 
-function charts() {
-    d3.json("../data/samples.json").then(data => {
-        let samples = data.samples;
-        let csample_results = samples.filter(sample => sample.id === id);
-        let otu = csample_results.map((otus) => otus.otu_ids);
-        let svalue = csample_results.map((svalues) => svalues.sample_values);
-        let olabel = csample_results.map((olabels) => olabels.otu_labels);
-        
-    });
+    // Create horizontal bar chart
+    let hbar = {
+        type: "bar",
+        x: values,
+        y: otu,
+        text: labels,
+        orientation: "h",
+    };
+
+    let hbarchart = [hbar];
+    Plotly.newPlot("bar", hbarchart);
+
+    // Create bubble chart
+    let bubble = {
+        x: otu,
+        y: values,
+        mode: "markers",
+        marker: {
+            size: values, color: otu, color: labels,
+        }
+    };
+
+    let bubblechart = [bubble];
+    Plotly.newPlot("bubble", bubblechart);
 };
-
-
-
-
-
-
-
-
-    // filter samples to 940
-    // for bubble: 
-    // y vals and size are the sample_values
-    // x vals are otu_ids
-    // text is otu_labels plus the value iirc
-
-    // for hbar
-    // xvals are sample_values
-    //y vals are otu_ids
-
-  };
 
 init ();
