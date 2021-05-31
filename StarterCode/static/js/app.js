@@ -2,14 +2,16 @@
 function init() {
     d3.json("../data/samples.json").then(data => {
         console.log(data);
+
         // Create dropdown list/option element
         let mySelect = d3.select("#selDataset");
         data.names.forEach(element => {
             mySelect.append("option").attr("value", element).text(element);
-    });
-
+        });
+   
+        
         // Add change event function for dropdown
-        mySelect.on("change", () => updatePlots(mySelect));
+        mySelect.on("change", () => handleChange(mySelect));
 
         // Set the value of the option to your filter value
         let str_id = mySelect.property("value");
@@ -40,47 +42,54 @@ function init() {
         charts(otuIDs, svalue, olabel);
 });
 
-// for demo info: filter metadata for id
-function metadata(demographics) {
-    let header = d3.select("#sample-metadata");
-    header.html("");
-    Object.entries(demographics).forEach(([k, v]) => {
-        header.append("option").text(`${k}: ${v}`); //.attr("value", [k, v])
+    // Create metadata function
+    function metadata(demographics) {
+        let header = d3.select("#sample-metadata");
+        header.html("");
+        Object.entries(demographics).forEach(([k, v]) => {
+            header.append("option").text(`${k}: ${v}`); //.attr("value", [k, v])
         });
-    };
-// };
+ };
 
-// Create plot function, starting with labels
-function charts(otuIDs, svalue, olabel) {
-    otu = otuIDs[0].slice(0, 10);
-    values = svalue[0].slice(0, 10);
-    labels = olabel[0].slice(0, 10);
 };
+        
+//     // Create plot function, starting with labels
+//     function charts(otuIDs, svalue, olabel) {
+//         otu = otuIDs[0].slice(0, 10);
+//         values = svalue[0].slice(0, 10);
+//         labels = olabel[0].slice(0, 10);
+//     };
 
-    // Create horizontal bar chart
-    let hbar = {
-        type: "bar",
-        x: values,
-        y: otu,
-        text: labels,
-        orientation: "h",
-    };
+//         // Create horizontal bar chart
+//         let hbar = {
+//             type: "bar",
+//             x: values,
+//             y: otu,
+//             text: labels,
+//             orientation: "h",
+//         };
 
-    let hbarchart = [hbar];
-    Plotly.newPlot("bar", hbarchart);
+//         let hbarchart = [hbar];
+//         Plotly.newPlot("bar", hbarchart);
 
-    // Create bubble chart
-    let bubble = {
-        x: otu,
-        y: values,
-        mode: "markers",
-        marker: {
-            size: values, color: otu, color: labels,
-        }
-    };
+//         // Create bubble chart
+//         let bubble = {
+//             x: otu,
+//             y: values,
+//             mode: "markers",
+//             marker: {
+//                 size: values, color: otu, color: labels,
+//             }
+//         };
 
-    let bubblechart = [bubble];
-    Plotly.newPlot("bubble", bubblechart);
-};
+//         let bubblechart = [bubble];
+//         Plotly.newPlot("bubble", bubblechart);
+
+    // Create change function
+    handleChange = () => {
+        d3.event.preventDefault();
+        let the_id = d3.select("#selDataset").property("value");
+        init(the_id);
+     };
 
 init ();
