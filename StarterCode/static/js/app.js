@@ -40,18 +40,14 @@ function init() {
         charts(otuIDs, svalue, olabel);
 });
 
-
 // for demo info: filter metadata for id
-function metadata(sample) {
-    d3.json("../data/samples.json").then(data => {
-        
-        // let demographics = metadata.filter(demographics => demographics.id === mdata_sample);
-        let header = d3.select("#sample-metadata");
-        header.html("");
-        Object.entries(demo).forEach(([k, v]) => {
-            header.append("option").text(`${k}: ${v}`); //.attr("value", [k, v])
+function metadata(demographics) {
+    let header = d3.select("#sample-metadata");
+    header.html("");
+    Object.entries(demographics).forEach(([k, v]) => {
+        header.append("option").text(`${k}: ${v}`); //.attr("value", [k, v])
         });
-    });
+    };
 };
 
 function charts() {
